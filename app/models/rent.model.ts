@@ -6,15 +6,15 @@ import {
     PrimaryKey,
     AutoIncrement,
     BelongsTo,
-    DefaultScope
+    DefaultScope, Scopes
 } from 'sequelize-typescript';
 import { Renter } from './renter.model';
 import { Stock } from './stock.model';
 
-@DefaultScope ({
+/*@DefaultScope ({
     include: [
         {
-           as: 'stock',
+            as: 'stock',
             model: () => Stock
         },
         {
@@ -22,6 +22,16 @@ import { Stock } from './stock.model';
             model: () => Renter
         }
     ]
+}) */
+
+@DefaultScope({
+    attributes: ['startDate', 'price']
+})
+
+@Scopes({
+    unrent: {
+        attributes: ['id', 'renterId', 'stockId']
+    }
 })
 
 @Table

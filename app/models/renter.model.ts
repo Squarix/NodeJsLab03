@@ -1,7 +1,13 @@
-import {Table, Column, Model, BelongsToMany, PrimaryKey, AutoIncrement, DefaultScope} from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  BelongsToMany,
+  PrimaryKey,
+  AutoIncrement,
+} from 'sequelize-typescript';
 import {Stock} from './stock.model';
 import {Rent}  from './rent.model';
-import {Identifier} from "sequelize";
 
 
 @Table

@@ -1,0 +1,332 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "0.0.1",
+    "title": "Node.js Application API",
+    "description": "Yet Another Node.js Blogg Application API",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/",
+  "tags": [
+    {
+      "name": "R&S API",
+      "description": "API for renters and stocks"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/renters": {
+      "get": {
+        "tags": [
+          "Renters"
+        ],
+        "summary": [
+          "Get all renters in database"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/models/renter.entity"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Renters"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "body",
+            "description": "Renter name here"
+          }
+        ],
+        "summary": [
+          "Creating new renter"
+        ],
+        "description": [
+          "Creating new renter"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/renters/{id}": {
+      "get": {
+        "tags": [
+          "Renter :id"
+        ],
+        "summary": "Renter by Id",
+        "description": "Return renter with id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of renter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Renter found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Renter :id"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of renter"
+          }
+        ],
+        "summary": "Deleting user",
+        "description": "Endpoint deletes renter with this id",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/renters/{id}/rent": {
+      "post": {
+        "tags": [
+          "Renter :id"
+        ],
+        "summary": "Creating new rent",
+        "description": "Creates new rent",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of renter"
+          },
+          {
+            "name": "Rent",
+            "in": "body",
+            "description": "price, stockId"
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Renter :id"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of renter"
+          },
+          {
+            "name": "stockId",
+            "in": "body",
+            "description": "Id of stock you want to unrent"
+          }
+        ],
+        "summary": "Delete Rent",
+        "description": "Delete a Renter's rent with your stockId",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/renters/{id}/stocks": {
+      "get": {
+        "tags": [
+          "Renter :id"
+        ],
+        "summary": "All stocks of renter",
+        "description": "Returns all renters stocks",
+        "responses": {
+          "200": {
+            "description": "Stocks found"
+          }
+        }
+      }
+    },
+    "/stocks": {
+      "get": {
+        "tags": [
+          "Stocks"
+        ],
+        "summary": [
+          "Get all stocks in database"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/models/stock.entity"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Stocks"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "body",
+            "description": "Stock name here"
+          },
+          {
+            "name": "availableCells",
+            "in": "body",
+            "description": "Stock Cells amount"
+          }
+        ],
+        "summary": [
+          "Creating new renter"
+        ],
+        "description": [
+          "Creating new renter"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/stocks/{id}": {
+      "get": {
+        "tags": [
+          "Stock :id"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of renter"
+          }
+        ],
+        "summary": "Returns stock",
+        "description": "Returns stock with this id",
+        "responses": {
+          "200": {
+            "description": "Stock found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Stock :id"
+        ],
+        "summary": "Deletes stock",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of renter"
+          }
+        ],
+        "description": "Endpoint deletes stock with this id",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Stock": {
+      "required": [
+        "name",
+        "id",
+        "availableCells"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "name": {
+          "type": "string"
+        },
+        "availableCells": {
+          "type": "integer"
+        },
+        "renters": {
+          "type": "array(Renter)"
+        }
+      }
+    },
+    "Rent": {
+      "required": [
+        "startDate",
+        "price",
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "price": {
+          "type": "integer"
+        },
+        "stock": {
+          "type": "Stock"
+        },
+        "renter": {
+          "type": "Renter"
+        }
+      }
+    },
+    "Renter": {
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "name": {
+          "type": "string."
+        },
+        "stocks": {
+          "type": "array(Stock)"
+        }
+      }
+    }
+  }
+}

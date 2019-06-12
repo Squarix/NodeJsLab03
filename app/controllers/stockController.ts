@@ -40,6 +40,7 @@ class StockController {
       })
       .then(stock => stock.$get('renters'))
       .then(renters => res.json(renters));
+
   };
 
   public create = (req: Request, res: Response) => {
@@ -52,10 +53,10 @@ class StockController {
     Stock.findByPk(req.params.id)
       .then(stock => {
         if (stock === null)
-          throw new Error('Stock not found')
+          throw new Error('Stock not found');
         return stock;
       })
-      .then(stock => stock.save())
+      .then(stock => stock.destroy())
       .then(() => res.json('Success'))
   };
 
